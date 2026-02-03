@@ -13,7 +13,6 @@ public class IframesPage extends BasePage {
 
     @FindBy(id = "frame1")
     WebElement frame1;
-
     @FindBy(css = "h1")
     WebElement title;
 
