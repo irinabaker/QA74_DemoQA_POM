@@ -1,5 +1,6 @@
 package com.demoqa.core;
 
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,11 +15,13 @@ public abstract class BasePage {
 
     protected WebDriver driver;
     public static JavascriptExecutor js;
+    public static SoftAssertions softly;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         js = (JavascriptExecutor) driver;
+        softly = new SoftAssertions();
     }
 
     public void scrollWithJS(int x, int y) {
@@ -36,6 +39,7 @@ public abstract class BasePage {
     }
 
     public void click(WebElement element) {
+        getWait(5).until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
 
@@ -68,5 +72,9 @@ public abstract class BasePage {
 
     public boolean shouldHaveText(WebElement element, String text, int time) {
         return getWait(time).until(ExpectedConditions.textToBePresentInElement(element,text));
+    }
+
+    public boolean isContainsCssValue(String color, WebElement selectedCar, String value) {
+        return selectedCar.getCssValue(value).contains(color);
     }
 }

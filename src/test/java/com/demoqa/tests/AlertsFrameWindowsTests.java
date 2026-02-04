@@ -55,7 +55,15 @@ public class AlertsFrameWindowsTests extends TestBase {
     @Test
     public void iframeByIdTest() {
         sidePanel.getFrames();
-        iframes.switchToIframeById();
+        iframes.switchToIframeById()
+                .verifyIframeByTitle("This is a sample page")
+                .switchToMainPage()
+                .verifyMainPageByTitle("Frames");
+    }
 
+    @Test
+    public void nestedIframesTest() {
+        sidePanel.getNestedFrames();
+        iframes.verifyNestedIframes();
     }
 }
