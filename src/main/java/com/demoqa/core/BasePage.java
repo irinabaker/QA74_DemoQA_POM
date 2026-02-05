@@ -1,10 +1,8 @@
 package com.demoqa.core;
 
 import org.assertj.core.api.SoftAssertions;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,25 +14,28 @@ public abstract class BasePage {
     protected WebDriver driver;
     public static JavascriptExecutor js;
     public static SoftAssertions softly;
+    public static Actions actions;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         js = (JavascriptExecutor) driver;
         softly = new SoftAssertions();
+        actions = new Actions(driver);
     }
 
-    public void scrollWithJS(int x, int y) {
+    public void scrollWithJS(int x, int y, int millis) {
+        pause(millis);
         js.executeScript("window.scrollBy(" + x + "," + y + ")");
     }
 
     public void clickWithJS(WebElement element, int x, int y) {
-        scrollWithJS(x,y);
+        scrollWithJS(x,y, 1000);
         click(element);
     }
 
     public void typeWithJS(WebElement element,String text, int x, int y) {
-        scrollWithJS(x,y);
+        scrollWithJS(x,y, 1000);
         type(element,text);
     }
 
@@ -77,4 +78,31 @@ public abstract class BasePage {
     public boolean isContainsCssValue(String color, WebElement selectedCar, String value) {
         return selectedCar.getCssValue(value).contains(color);
     }
+
+    public boolean isElementVisible(WebElement element) {
+        try {
+            element.isDisplayed();
+            return true;
+        } catch (NoSuchElementException e) {
+           e.getMessage();
+           return false;
+        }
+    }
+
+    public void waitOfElementVisibility(WebElement element, int time) {
+        getWait(time).until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public String getValue(WebElement element, String value) {
+        return element.getDomAttribute(value);
+    }
+
+    public void pause(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

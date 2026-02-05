@@ -3,7 +3,10 @@ package com.demoqa.tests;
 import com.demoqa.core.TestBase;
 import com.demoqa.pages.HomePage;
 import com.demoqa.pages.SidePanel;
+import com.demoqa.pages.widgets.MenuPage;
 import com.demoqa.pages.widgets.SelectPage;
+import com.demoqa.pages.widgets.SliderPage;
+import com.demoqa.pages.widgets.ToolTipsPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,5 +40,27 @@ public class WidgetsTests extends TestBase {
     public void standardMultiSelectTest() {
         sidePanel.getSelectMenu();
         select.verifySelectedCar("opel","rgba(223, 197, 224, 1)");
+    }
+
+    @Test
+    public void hoverMouseOnMenuTest() {
+        sidePanel.getMenu();
+        new MenuPage(driver).hoverMouseOnSubMenu()
+                .verifySubMenu();
+    }
+
+    @Test
+    public void sliderTest() {
+        sidePanel.getSlider();
+        new SliderPage(driver).moveSlider()
+                .verifySliderValue("100")
+        ;
+    }
+
+    @Test
+    public void toolTipsTest() {
+        sidePanel.getToolTips();
+        new ToolTipsPage(driver).hoverMouseOnToolTips()
+                .verifyToolTips("buttonToolTip");
     }
 }
