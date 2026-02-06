@@ -27,8 +27,6 @@ public class TextBoxPage extends BasePage {
         //past current address text to permanent address field
         actions.keyDown(Keys.COMMAND).sendKeys("v").keyUp(Keys.COMMAND).perform();
 
-        actions.sendKeys(Keys.D)
-
         return this;
     }
 
