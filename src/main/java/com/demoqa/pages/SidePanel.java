@@ -5,6 +5,9 @@ import com.demoqa.pages.alertsFrameWindows.AlertsPage;
 import com.demoqa.pages.alertsFrameWindows.IframesPage;
 import com.demoqa.pages.alertsFrameWindows.WindowsPage;
 import com.demoqa.pages.bookStore.LoginPage;
+import com.demoqa.pages.elements.ButtonsPage;
+import com.demoqa.pages.elements.TextBoxPage;
+import com.demoqa.pages.forms.PracticeFormPage;
 import com.demoqa.pages.interactions.DragAndDropPage;
 import com.demoqa.pages.widgets.MenuPage;
 import com.demoqa.pages.widgets.SelectPage;
@@ -98,5 +101,29 @@ public class SidePanel extends BasePage {
     public DragAndDropPage getDroppable() {
         clickWithJS(droppable,0,600);
         return new DragAndDropPage(driver);
+    }
+
+    @FindBy(xpath = "//span[.='Buttons']")
+    WebElement buttons;
+
+    public ButtonsPage getButtons() {
+        clickWithJS(buttons,0,400);
+        return new ButtonsPage(driver);
+    }
+
+    @FindBy(xpath = "//span[.='Text Box']")
+    WebElement textBox;
+
+    public TextBoxPage getTextBox() {
+        click(textBox);
+        return new TextBoxPage(driver);
+    }
+
+    @FindBy(xpath = "//span[.='Practice Form']")
+    WebElement practiceForm;
+
+    public PracticeFormPage getPracticeForm() {
+        click(practiceForm);
+        return new PracticeFormPage(driver);
     }
 }

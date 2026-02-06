@@ -42,8 +42,8 @@ public class DragAndDropPage extends BasePage {
         System.out.println("xOffset -> " + xOffset + " *** " + "yOffset -> " + yOffset);
 
         //find coordinates offset and offset1
-        xOffset = xOffset - xOffset1;
-        yOffset = yOffset - yOffset1;
+        xOffset = (xOffset - xOffset1)+50;
+        yOffset = (yOffset - yOffset1)+80;
 
         actions.dragAndDropBy(dragMe,xOffset,yOffset).perform();
         return this;
