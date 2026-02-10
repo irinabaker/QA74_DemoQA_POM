@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.Duration;
 
 public abstract class BasePage {
@@ -103,6 +105,37 @@ public abstract class BasePage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void verifyLinks(String url) {
+        try {
+            URL linkUrl = new URL(url);
+            //create URL connection and get response code
+            HttpURLConnection connection = (HttpURLConnection) linkUrl.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.connect();
+            int statusCode = connection.getResponseCode();
+            if (statusCode >= 400) {
+               // System.out.println(url + " --> " + connection.getResponseMessage() + " is a BROKEN link");
+            softly.fail(url + " --> " + connection.getResponseMessage() + " is a BROKEN link");
+            } else {
+             //   System.out.println(url + " --> " + connection.getResponseMessage());
+                softly.assertThat(statusCode).isLessThan(400);
+            }
+        }catch (Exception e) {
+          //  System.out.println(url + " --> " + " ERROR occurred");
+            softly.fail(url + " --> " + " ERROR occurred");
+        }
+    }
+
+    public void  clickWithRectangle(WebElement element) {
+        Rectangle rectangle = element.getRect();
+
+        int xOffset = rectangle.getWidth() / 6;
+        int yOffset = rectangle.getHeight() / 2;
+
+        actions.moveToElement(element).perform();
+        actions.moveByOffset(-xOffset,-yOffset).click().perform();
     }
 
 }

@@ -64,4 +64,48 @@ public class TextBoxPage extends BasePage {
         type(permanentAddress,address);
         return this;
     }
+
+    public TextBoxPage enterPersonalDataWithJS(String name, String email) {
+        js.executeScript("document.getElementById('userName').value='"+ name + "';");
+        js.executeScript("document.getElementById('userEmail').value='"+ email + "';");
+        js.executeScript("document.getElementById('userEmail').style.border='5px solid red';");
+        return this;
+    }
+
+    public TextBoxPage clickOnSubmitWithJS() {
+        js.executeScript("document.querySelector('#submit').click();");
+        js.executeScript("document.querySelector('#submit').style.backgroundColor='red';");
+        return this;
+    }
+
+    public TextBoxPage getInnerText() {
+        String innerText = js.executeScript("return document.documentElement.innerText;").toString();
+        System.out.println(innerText);
+        System.out.println("*********************************************");
+        return this;
+    }
+
+    public TextBoxPage verifyUrl() {
+        String url = js.executeScript("return document.URL").toString();
+        System.out.println("URL = " + url);
+        System.out.println("***************************************");
+        return this;
+    }
+
+    public TextBoxPage refreshWithJS() {
+        js.executeScript("history.go(0);");
+        return this;
+    }
+
+    public TextBoxPage navigateWithJS(String url) {
+        js.executeScript("window.location='"+ url + "';");
+        return this;
+    }
+
+    public TextBoxPage verifyFaveIconTitle() {
+        String title = js.executeScript("return document.title;").toString();
+        System.out.println(title);
+        System.out.println("*********************************");
+        return this;
+    }
 }

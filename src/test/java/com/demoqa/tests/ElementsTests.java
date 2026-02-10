@@ -3,8 +3,10 @@ package com.demoqa.tests;
 import com.demoqa.core.TestBase;
 import com.demoqa.pages.HomePage;
 import com.demoqa.pages.SidePanel;
+import com.demoqa.pages.elements.BrokenLinksImagesPage;
 import com.demoqa.pages.elements.ButtonsPage;
 import com.demoqa.pages.elements.TextBoxPage;
+import com.demoqa.pages.elements.UploadPage;
 import com.demoqa.utils.MyArgumentsProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,8 @@ public class ElementsTests extends TestBase {
     SidePanel sidePanel;
     ButtonsPage buttons;
     TextBoxPage textBox;
+    BrokenLinksImagesPage broken;
+    UploadPage upload;
 
     @BeforeEach
     public void precondition() {
@@ -24,6 +28,8 @@ public class ElementsTests extends TestBase {
         buttons = new ButtonsPage(driver);
         new HomePage(driver).getElements();
         textBox = new TextBoxPage(driver);
+        broken = new BrokenLinksImagesPage(driver);
+        upload = new UploadPage(driver);
     }
 
     @Test
@@ -65,4 +71,44 @@ public class ElementsTests extends TestBase {
                 .clickOnSubmitButton()
                 .verifyAddress();
     }
+
+    @Test
+    public void javascriptExecutorTest() {
+        sidePanel.getTextBox();
+        textBox.enterPersonalDataWithJS("Jamal Musiala","jamal@gm.com")
+                .clickOnSubmitWithJS()
+                .getInnerText()
+                .verifyUrl()
+                .refreshWithJS()
+                .navigateWithJS("https://ilcarro.web.app")
+                .verifyFaveIconTitle()
+                ;
+    }
+
+    @Test
+    public void getAllLinksTest() {
+        sidePanel.getBrokenLinksImages();
+        broken.getAllLinks();
+    }
+
+    @Test
+    public void checkBrokenLinksTest() {
+        sidePanel.getBrokenLinksImages();
+        broken.checkBrokenLinks();
+    }
+
+    @Test
+    public void checkBrokenImagesTest() {
+        sidePanel.getBrokenLinksImages();
+        broken.checkBrokenImages();
+    }
+
+    @Test
+    public void performKeyEventTest() {
+        sidePanel.getUpload();
+        upload.performKeyEvent()
+                ;
+    }
 }
+
+//   D1.txt
