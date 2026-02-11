@@ -107,8 +107,15 @@ public class ElementsTests extends TestBase {
     public void performKeyEventTest() {
         sidePanel.getUpload();
         upload.performKeyEvent()
+                .verifyFilePath("C:\\fakepath\\D1.txt")
+                ;
+    }
+
+    @Test
+    public void performMouseEventTest() {
+        sidePanel.getUpload();
+        upload.performMouseEvent()
+                .verifyFilePath("C:\\fakepath\\D1.txt")
                 ;
     }
 }
-
-//   D1.txt

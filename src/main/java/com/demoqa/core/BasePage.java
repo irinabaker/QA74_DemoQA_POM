@@ -131,8 +131,8 @@ public abstract class BasePage {
     public void  clickWithRectangle(WebElement element) {
         Rectangle rectangle = element.getRect();
 
-        int xOffset = rectangle.getWidth() / 6;
-        int yOffset = rectangle.getHeight() / 2;
+        int xOffset = rectangle.getWidth() /8;
+        int yOffset = rectangle.getHeight() / 4;
 
         actions.moveToElement(element).perform();
         actions.moveByOffset(-xOffset,-yOffset).click().perform();
