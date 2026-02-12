@@ -7,6 +7,7 @@ import com.demoqa.pages.alertsFrameWindows.AlertsPage;
 import com.demoqa.pages.alertsFrameWindows.IframesPage;
 import com.demoqa.pages.alertsFrameWindows.WindowsPage;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 public class AlertsFrameWindowsTests extends TestBase {
@@ -62,6 +63,7 @@ public class AlertsFrameWindowsTests extends TestBase {
     }
 
     @Test
+    @Tag("smoky")
     public void nestedIframesTest() {
         sidePanel.getNestedFrames();
         iframes.verifyNestedIframes();
